@@ -1,9 +1,7 @@
 from scipy.cluster.hierarchy import dendrogram as _dendrogram
 from scipy.cluster.hierarchy import fcluster
 import numpy as np
-import scipy.cluster.hierarchy as sch
 import matplotlib.pyplot as plt
-import pandas as pd
 from sklearn.cluster import AgglomerativeClustering
 
 
@@ -26,37 +24,51 @@ def sklearn_model_to_linkage(model):
     ).astype(float)
     return linkage_matrix
 
-def build_local_dendogram(target_chapter, target_verse, Z, k, vectorized_verses, df):
-    match = df[ (df["chapter#"] == target_chapter) & (df["verse#"] == target_verse) ]
+def build_local_dendrogram(target_chapter, target_verse, Z, k, vectorized_verses, df):
+    match = df[(df["chapter#"] == target_chapter) & (df["verse#"] == target_verse)]
     if match.empty:
-            print("Verse not found.")
-    
-    else:
-        idx = match.index[0]
-        local_labels = fcluster(Z, t=k, criterion= "maxclust")
-        cluster_id = local_labels[idx]
-        member_idx = np.where(local_labels = cluster_id)[0]
+        return None, np.array([], dtype=int), "Verse not found in hierarchical dataset."
 
-        print(f"Cluster {cluster_id} has {len(member_idx)} verses")
+    idx = int(match.index[0])
+    labels_k = fcluster(Z, t=k, criterion="maxclust")
+    cluster_id = int(labels_k[idx])
+    member_idx = np.where(labels_k == cluster_id)[0]
 
-        if len(member_idx) < 2:
-            print("Cluster has only 1 verse — nothing to plot.")
-        elif len(member_idx) > 200:
-            print(f"Cluster too large ({len(member_idx)} verses) to plot clearly. Try a higher k.")
+    if len(member_idx) < 2:
+        return None, member_idx, "Cluster has only 1 verse, so no dendrogram can be plotted."
+    if len(member_idx) > 200:
+        return None, member_idx, f"Cluster too large ({len(member_idx)} verses). Increase k to get a smaller local cluster."
 
-        else:
-             subset_recluster = vectorized_verses[member_idx].toArray()
+    subset_recluster = vectorized_verses[member_idx].toarray()
 
-             hc = AgglomerativeClustering(
-                n_clusters=None,
-                metric="cosine",
-                linkage="complete",
-                distance_threshold=0,
-                compute_distances=True
-             )
+    hc_local = AgglomerativeClustering(
+        n_clusters=None,
+        metric="cosine",
+        linkage="complete",
+        distance_threshold=0,
+        compute_distances=True,
+    )
+    hc_local.fit(subset_recluster)
+    Z_local = sklearn_model_to_linkage(hc_local)
 
-             hc.fit(subset_recluster)
+    axis_labels = [
+        f"{int(df.iloc[pos]['chapter#'])}:{int(df.iloc[pos]['verse#'])}"
+        for pos in member_idx
+    ]
 
+    fig, ax = plt.subplots(figsize=(max(12, len(member_idx) * 0.4), 6))
+    _dendrogram(
+        Z_local,
+        labels=axis_labels,
+        leaf_rotation=90,
+        color_threshold=0.5,
+        above_threshold_color="grey",
+        ax=ax,
+    )
+    ax.set_title(
+        f"Local dendogram at cut level {k} for cluster containing {target_chapter}:{target_verse}"
+    )
+    ax.set_ylabel("Cosine distance (when they joined)")
+    fig.tight_layout()
 
-
-    return fig, member_idx
+    return fig, member_idx, f"Cluster {cluster_id} has {len(member_idx)} verses."
