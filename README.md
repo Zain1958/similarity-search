@@ -1,7 +1,7 @@
 # Quran Verse Similarity Search (Mutashabihat finder)
 # Description
 
-A python project which uses machine learning clustering algorithms to find *mutashabihat*—verses in the Qur'am that are highly similar in wording.
+A python project which uses machine learning clustering algorithms to find *mutashabihat*—verses in the Qur'an that are similar in wording.
 
 > Status: **In progress** — ML algorithms tested; Streamlit web app under development (not deployed yet).
 
@@ -16,12 +16,12 @@ This project explores whether unsupervised ML algorithms can be leveraged to:
 
 Even if you’re not familiar with the Qur’an, you can think of this as a sort of **document similarity** problem on a large corpus of text.
 
-## What it does
+## Features
 
-- Clusters all verses into groups where verses have similar wording
-- Uses two clustering algorithms:
+- Uses 2 clustering algorithms:
   - **K-Means**
   - **Aggolomerative clustering**
+- Clusters all verses into groups where verses have similar wording
 - (In progress) Produces diagrams/analysis to inspect clusters and compare the effectiveness of the 2 algorithms against each other and  existing lists 
 - (In progress) Deploys a Streamlit web app for user interaction- allows users to select a verse and see all similar verses in the Qur'an, or to select a cluster and see all verses in the cluster
 
@@ -34,86 +34,81 @@ Even if you’re not familiar with the Qur’an, you can think of this as a sort
 
 
 
----
 
- 
+## Installation
 
+### 1. Prerequisites
 
-### Installation
+- Python 3.10+
+- pip (usually installed with Python)
+- Git (optional, for cloning)
+
+### 2. Clone and enter the project
+
 ```bash
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-# macOS/Linux: source .venv/bin/activate
-
-pip install -r requirements.txt
+git clone https://github.com/Zain1958/similarity-search.git
+cd similarity-search
 ```
 
-### Run the ML pipeline
-> Replace with your real command(s).
+### 3. Create and activate a virtual environment
+
 ```bash
-python -m src.pipeline
+python -m venv venv
+
+# Windows (PowerShell)
+venv\Scripts\Activate.ps1
+
+# Windows (Git Bash / CMD alternative)
+source venv/Scripts/activate
+
+# macOS/Linux
+# source venv/bin/activate
 ```
 
-### Run the Streamlit app (WIP)
-> Replace with your real path/entrypoint.
+### 4. Install dependencies
+
 ```bash
-streamlit run app/app.py
+python -m pip install --upgrade pip
+python -m pip install pandas numpy matplotlib scikit-learn scipy streamlit jupyter notebook
+```
+
+### 5. Verify installation (optional)
+
+```bash
+python -c "import pandas, numpy, matplotlib, sklearn, scipy, streamlit; print('Setup OK')"
+```
+
+### 6. Run the app
+
+```bash
+streamlit run app.py
+```
+
+### 7. Open notebooks (optional)
+
+```bash
+# If you see: "No module named notebook"
+python -m pip install notebook
+
+# Open the notebook UI in the notebooks folder
+cd notebooks
+python -m notebook
+
+# Open one notebook directly (if you are inside notebooks/)
+# Replace 03_hierarchical_clustering.ipynb with other notebook filenames as desired
+python -m notebook 03_hierarchical_clustering.ipynb
+
+# Or open one notebook directly from project root
+python -m notebook notebooks/03_hierarchical_clustering.ipynb
 ```
 
 ---
 
-
-## Project structure (example)
-
-> Update this section to match your repo layout.
-
-- `data/` – dataset files (or scripts to download them)
-- `notebooks/` – experiments + visual analysis
-- `src/` – reusable pipeline code (preprocessing, vectorization, clustering)
-- `app/` – Streamlit app (work in progress)
-- `outputs/` – saved figures/results (optional)
-
-## Results & evaluation (how to interpret output)
-
-Because this is unsupervised clustering, “accuracy” isn’t a single number by default.
-Current validation is based on:
-- qualitative inspection of cluster contents
-- cluster size distribution
-- comparing outputs against known/curated *mutashabihat* examples (planned / partial)
-
-Planned improvements:
-- add reproducible evaluation scripts
-- report clustering metrics (e.g., silhouette score) and retrieval-style metrics where applicable
-
----
-
-## Roadmap
-
-- [ ] Cleanly separate preprocessing / vectorization / clustering into a reproducible pipeline
-- [ ] Add configuration (choose algorithm, number of clusters, vectorizer options)
-- [ ] Streamlit UI: verse lookup + cluster browsing
-- [ ] Add export (CSV/JSON) of verse → cluster and top similar verses
-- [ ] Add basic tests + CI
-- [ ] Deploy the Streamlit app
-
----
-
-## Notes on data & text versions
-
-This project depends on the Qur’an text source and normalization choices (e.g., diacritics, tokenization).  
-Document which text source/version you use and how it is processed so results are reproducible.
-
----
-
-## Disclaimer
-
-This tool is intended to assist study by surfacing candidates for similar wording.  
-It may miss relevant verses or include verses that are not meaningfully similar.
-
----
 
 ## License
-Choose a license (MIT is common for personal projects) and add a `LICENSE` file.
+This project is licensed under the MIT License.
+
+See [LICENSE](LICENSE) for the full text.
 
 ---
 
