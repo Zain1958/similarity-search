@@ -25,10 +25,15 @@ Even if you’re not familiar with the Qur’an, you can think of this as a sort
 - (In progress) Produces diagrams/analysis to inspect clusters and compare the effectiveness of the 2 algorithms against each other and  existing lists 
 - (In progress) Deploys a Streamlit web app for user interaction- allows users to select a verse and see all similar verses in the Qur'an, or to select a cluster and see all verses in the cluster
 
-## Demo
+## Visuals
+### Demo
 ![Demo](visuals/Mutashibihaat_demo_1.gif)
-![App Screenshot](visuals/Mutashabihaat_screenshot_1.png)
-![App Screenshot](visuals/Mutashabihaat_screenshot_2.png)
+
+
+| Screenshots  |  |  
+| :--- | :--- |              
+| ![App Screenshot](visuals/Mutashabihaat_screenshot_1.png) | ![App Screenshot](visuals/Mutashabihaat_screenshot_2.png) | 
+
 ## Tech stack
 
 **Python**: pandas, numpy, matplotlib, scikit-learn  
