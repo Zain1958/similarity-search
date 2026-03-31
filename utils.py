@@ -71,9 +71,6 @@ def build_local_dendrogram(target_chapter, target_verse, Z, k, vectorized_verses
         above_threshold_color="grey",
         ax=ax,
         truncate_mode=None,
-        #p=p,
-        #show_contracted=large,
-        #show_leaf_counts=large,
     )
     ax.set_title(
         f"Local dendogram at cut level {k} for cluster containing {target_chapter}:{target_verse}"
