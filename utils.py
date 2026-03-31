@@ -38,6 +38,8 @@ def build_local_dendrogram(target_chapter, target_verse, Z, k, vectorized_verses
         return None, member_idx, "Cluster has only 1 verse, so no dendrogram can be plotted."
     if len(member_idx) > 200:
         return None, member_idx, f"Cluster too large ({len(member_idx)} verses). Increase k to get a smaller local cluster."
+    elif len(member_idx) > 50:
+        return None, member_idx, f"No local dendrogram shown at k = {k} because cluster size is {len(member_idx)} > 50. Try a higher k."
 
     subset_recluster = vectorized_verses[member_idx].toarray()
 
@@ -56,7 +58,11 @@ def build_local_dendrogram(target_chapter, target_verse, Z, k, vectorized_verses
         for pos in member_idx
     ]
 
-    fig, ax = plt.subplots(figsize=(max(12, len(member_idx) * 0.4), 6))
+    #large = len(member_idx) > 50
+    #p = 40  # number of leaf nodes shown when truncated
+
+    displayed = len(member_idx)
+    fig, ax = plt.subplots(figsize=(max(12, displayed * 0.5), 7))
     _dendrogram(
         Z_local,
         labels=axis_labels,
@@ -64,6 +70,10 @@ def build_local_dendrogram(target_chapter, target_verse, Z, k, vectorized_verses
         color_threshold=0.5,
         above_threshold_color="grey",
         ax=ax,
+        truncate_mode=None,
+        #p=p,
+        #show_contracted=large,
+        #show_leaf_counts=large,
     )
     ax.set_title(
         f"Local dendogram at cut level {k} for cluster containing {target_chapter}:{target_verse}"

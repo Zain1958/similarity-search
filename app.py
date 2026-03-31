@@ -1,7 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from utils import build_local_dendrogram
 from scipy.cluster.hierarchy import fcluster
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+vectorizer = TfidfVectorizer()
+
 
 # 1. Load Data
 @st.cache_data
@@ -12,8 +17,9 @@ def load_data():
 @st.cache_data
 def load_hierarchical_data():
     verses_df = pd.read_csv("data/hc_verses.csv")
+    vectorized_verses = vectorizer.fit_transform(verses_df['verse'])
     linkage_matrix = np.load("data/hc_linkage.npy")
-    return verses_df, linkage_matrix
+    return verses_df, linkage_matrix, vectorized_verses
 
 df = load_data()
 
@@ -55,7 +61,7 @@ with tab_hierarchical:
     st.header("Hierarchical Results")
 
     try:
-        h_df, Z = load_hierarchical_data()
+        h_df, Z, V = load_hierarchical_data()
     except Exception:
         st.warning("Missing hierarchical files. Save `data/hc_verses.csv` and `data/hc_linkage.npy` from your notebook first.")
         st.stop()
@@ -84,3 +90,19 @@ with tab_hierarchical:
         st.info(f"Verse {h_s_num}:{h_a_num} is in hierarchical cluster {cluster_id} at k={k}.")
         st.write(f"Cluster size: {len(cluster_rows)}")
         st.dataframe(cluster_rows[["chapter#", "verse#", "verse"]])
+
+         
+        result = build_local_dendrogram(
+            h_s_num, h_a_num, Z, k=k, vectorized_verses=V, df=h_df
+        )
+        if len(result) == 3:
+            fig, member_idx, msg = result
+        else:
+            fig, member_idx = result
+            msg = None
+        
+        st.subheader(f"Local dendrogram where k = {k}")
+        if fig is not None:
+            st.pyplot(fig)
+        elif msg is not None:
+            st.error(msg)
