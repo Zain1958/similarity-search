@@ -3,7 +3,7 @@
 
 A python project which uses machine learning clustering algorithms to find *mutashabihat*—verses in the Qur'an that are similar in wording.
 
-> Status: **In progress** — ML algorithms tested; Streamlit web app under development (not deployed yet).
+> Status: **In progress** — ML algorithms tested; Streamlit web app developed (not deployed yet).
 
 ## Motivation
 There are many study resources which provide “lists of similar verses”, but those lists can be **limited in coverage** (they don't exhaustively list all verses that are similar) and **hard to explore interactively**, making them less effective for learners.
@@ -62,7 +62,7 @@ venv\Scripts\Activate.ps1
 source venv/Scripts/activate
 
 # macOS/Linux
-# source venv/bin/activate
+source venv/bin/activate
 ```
 
 ### 4. Install dependencies
@@ -70,6 +70,8 @@ source venv/Scripts/activate
 ```bash
 python -m pip install --upgrade pip
 python -m pip install pandas numpy matplotlib scikit-learn scipy streamlit jupyter notebook
+
+python -m pip install rapidfuzz # Optional, for running notebooks/01_initial_tests.ipynb if desired
 ```
 
 ### 5. Verify installation (optional)
