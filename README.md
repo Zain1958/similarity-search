@@ -27,8 +27,8 @@ Even if you’re not familiar with the Qur’an, you can think of this as a sort
 
 ## Demo
 ![Demo](visuals/Mutashibihaat_demo_1.gif)
-![App Screenshot](visuals/Mutashibihaat_screenshot_1.png)
-![App Screenshot](visuals/Mutashibihaat_screenshot_2.png)
+![App Screenshot](visuals/Mutashabihaat_screenshot_1.png)
+![App Screenshot](visuals/Mutashabihaat_screenshot_2.png)
 ## Tech stack
 
 **Python**: pandas, numpy, matplotlib, scikit-learn  
