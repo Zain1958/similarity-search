@@ -1,6 +1,4 @@
 # Quran Verse Similarity Search (Mutashabihat finder)
-# Description
-
 A python project which uses machine learning clustering algorithms to find *mutashabihat*—verses in the Qur'an that are similar in wording.
 
 > Status: **In progress** — ML algorithms tested; Streamlit web app developed (not deployed yet).
