@@ -51,7 +51,7 @@ with tab_kmeans:
     with subtab2:
         st.subheader("Explore the Quran's thematic groups")
         # Use the sidebar only for this sub-tab
-        cluster_selection = st.sidebar.slider("Select K-Means Cluster", 0, 69, 0)
+        cluster_selection = st.slider("Select K-Means Cluster", 0, 69, 0)
         
         st.write(f"Showing all verses for **Cluster {cluster_selection}**")
         st.dataframe(df[df['cluster'] == cluster_selection][['chapter#', 'verse#', 'verse']])
