@@ -37,7 +37,7 @@ with guide:
     "• Enter the verse number for which you want to view mutashabihaat \n"
     "Or: \n" 
     "• Navigate to the 'Browse Clusters' tab \n" 
-    "• Use the slider to view all of the verses in a particular Kmeans cluster \n" 
+    "• Use the slider to view all of the verses in a particular K means cluster \n" 
     "\n"
     "To view the mutashabihaat based on hierarchical clustering: \n "
     "• Navigate to the Hierarchical tab \n "
