@@ -42,7 +42,9 @@ with guide:
     "To view the mutashabihaat based on hierarchical clustering: \n "
     "• Navigate to the Hierarchical tab \n "
     "• Enter the verse number\n"
-    "• Adjust the slider to adjust the cluster cut level (k), which determines how finely or broadly the dendrogram is divided.")
+    "• Adjust the slider to adjust the cluster cut level (k), which determines how finely or broadly the dendrogram is divided."
+    "\n \n"
+    "Note: To see the full verse where the verse is truncated, click on the verse in the table")
 
 # --- K-MEANS SECTION ---
 with tab_kmeans:
