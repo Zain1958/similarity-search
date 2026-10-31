@@ -44,7 +44,8 @@ with guide:
     "• Enter the verse number\n"
     "• Adjust the slider to adjust the cluster cut level (k), which determines how finely or broadly the dendrogram is divided."
     "\n \n"
-    "Note: To see the full verse where the verse is truncated, click on the verse in the table")
+    "Notes: \n \n• To see the full verse where the verse is truncated, click on the verse in the table"
+    "• Not all verses can have dendrograms drawn displayed.")
 
 # --- K-MEANS SECTION ---
 with tab_kmeans:
