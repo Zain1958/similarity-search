@@ -26,7 +26,21 @@ df = load_data()
 st.title("🕋 Quranic Mutashabihaat Explorer")
 
 # --- TOP LEVEL TABS ---
-tab_kmeans, tab_hierarchical = st.tabs(["K-Means", "Hierarchical"])
+guide,tab_kmeans, tab_hierarchical = st.tabs(["User guide","K-Means", "Hierarchical"])
+
+# --- USER GUIDE SECTION
+with guide:
+    st.text("This is a web app designed to locate mutashabihaat- verses that are similar in wording in the quran. \n " \
+    "To view the mutashabihaat that have been discovered using K-means clustering,navigate to the K means tab, and either: \n" \ 
+    "• Navigate to the 'Search Ayah' tab \n" \ 
+    "• Enter the verse number for which you want to view mutashabihaat \n"
+    "Or: \n" \
+    "• Navigate to the 'Browse Clusters' tab \n" \
+    "• Use the slider to view all of the verses in a particular Kmeans cluster \n" \
+    "To view the mutashabihaat based on hierarchical clustering: \n "
+    "• Navigate to the Hierarchical tab \n "
+    "• Enter the verse number\n"
+    "• Adjust the slider to adjust the cluster cut level (k), which determines how finely or broadly the dendrogram is divided.")
 
 # --- K-MEANS SECTION ---
 with tab_kmeans:
